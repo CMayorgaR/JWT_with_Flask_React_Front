@@ -9,27 +9,27 @@ const getState = ({ setStore, getActions, getStore }) => {
           }
     },
     actions: {
-        handleChangeSignUp: (e) => {
+        handleSignUp: (e) => {
             const { user } = getStore();
             setStore({
               user: {
                 ...user,[e.target.name]: e.target.value},
             });
           },
-          /* handleSubmitSignUp: (evento, navigate) => {
+          handleSubmitSignUp: (evento/* , navigate */) => {
             const actions = getActions();
-            evento.preventDefault(); //evitamos que la pag vuelva a cargar.
-            const { user } = getStore(); //traeme el usuario del store
-            fetch(APIusers + "create_user", {
+            evento.preventDefault();
+            const { user } = getStore();
+            fetch(APIusers + "sign_up", {
               method: "POST",
               headers: {
-                "Content-Type": "application/json", //el lenguaje de comunicacion es json
+                "Content-Type": "application/json",
               },
               body: JSON.stringify(user),
             })
               .then((res) => res.json())
               .then((data) => console.log(data));
-            navigate("/")} */
+            /* navigate("/") */}
           }  
     }
 };
