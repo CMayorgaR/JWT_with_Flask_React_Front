@@ -5,12 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 const SignUp = () => {
   const { actions, store } = useContext(Context);
   const [user, setUser] = useState();
-  /* let navigate = useNavigate(); */
+  let navigate = useNavigate();
 
   return (
     <div className="container py-5 h-100">
       <h1> Create an account: </h1>
-      <form onSubmit={(e)=>actions.handleSubmitSignUp(e)}>
+      <form onSubmit={(e)=>actions.handleSubmitSignUp(e, navigate)}>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Email address</label>
           <input
@@ -37,8 +37,8 @@ const SignUp = () => {
             onChange={(e) => actions.handleSignUp(e)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Sign up!
+        <button type="submit" className="btn btn-success">
+          Sign Up!
         </button>
       </form>
     </div>

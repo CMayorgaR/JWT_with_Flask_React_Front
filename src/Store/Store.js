@@ -16,7 +16,7 @@ const getState = ({ setStore, getActions, getStore }) => {
                 ...user,[e.target.name]: e.target.value},
             });
           },
-          handleSubmitSignUp: (evento/* , navigate */) => {
+          handleSubmitSignUp: (evento, navigate) => {
             const actions = getActions();
             evento.preventDefault();
             const { user } = getStore();
@@ -29,8 +29,45 @@ const getState = ({ setStore, getActions, getStore }) => {
             })
               .then((res) => res.json())
               .then((data) => console.log(data));
-            /* navigate("/") */}
-          }  
+            navigate("/log_in")}
+          },
+          handleChangeLogIn: (evento) => {
+            const { user } = getStore();
+            setStore({
+              user: {
+                ...user,
+                [evento.target.name]: evento.target.value,
+              }
+            })
+          },
+          handleSubmitLogin: (evento, navigate) => {
+            evento.preventDefault();
+            localStorage.clear();
+            const { user } = getStore(); //traeme el usuario del store
+            fetch(APIusers + "login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(user),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                if (data.access_token) {
+                  localStorage.setItem("token", data.access_token);
+                  navigate("/private");
+                } else {
+                  localStorage.clear();
+                }
+              });
+            setStore({
+              user: {
+                email: "",
+                password: "",
+              },
+            });
+          }, 
     }
 };
 
